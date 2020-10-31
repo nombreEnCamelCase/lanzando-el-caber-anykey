@@ -13,4 +13,8 @@ public class Lanzador {
 	public void registrarLanzamiento(Lanzamiento lanzamiento){
 		this.lanzamientos.add(lanzamiento);
 	}
+	
+	public List<Lanzamiento> obtenerLanzamientos(){
+		return this.lanzamientos;
+	}
 }

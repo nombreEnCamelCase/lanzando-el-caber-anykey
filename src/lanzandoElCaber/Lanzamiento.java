@@ -8,4 +8,12 @@ public class Lanzamiento {
 		this.distancia = distancia;
 		this.angulo = angulo;
 	}
+	
+	public double obtenerDistanciaCalculada(){
+		return this.distancia;
+	}
+	
+	public double obtenerAngulo(){
+		return this.angulo;
+	}
 }

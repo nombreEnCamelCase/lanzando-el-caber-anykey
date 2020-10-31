@@ -32,7 +32,7 @@ public class TorneoTests {
     	}};
     	
     	this.torneo.agregarLanzadoresACompetencia(mockFileData);
-        assertEquals(2, this.torneo.getCompetidores().size());
+        assertEquals(2, this.torneo.obtenerCompetidores().size());
     }
 	
 }

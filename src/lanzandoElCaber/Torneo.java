@@ -6,6 +6,11 @@ import java.util.Map.Entry;
 
 public class Torneo {
 	private List<Lanzador> competidores = new ArrayList<>();  
+	private int anguloMinimoPermitido = -90;
+	private int anguloMaximoPermitido = 90;
+	private int anguloMinimoValorTotal = -45;
+	private int anguloMayorValorTotal = 45;
+
 	
 	public Torneo(){}
 	
@@ -34,7 +39,26 @@ public class Torneo {
         }
     }
     
-    public List<Lanzador> getCompetidores(){
+    void competirEnDistancia(){
+    	/** TODO: completar */
+    	for(Lanzador competidor : this.competidores){
+    		boolean enJuego = true;
+    		for(Lanzamiento lanzamiento : competidor.obtenerLanzamientos()){
+    			if(esLanzamientoValido(lanzamiento)){
+    				lanzamiento.obtenerDistanciaCalculada();
+    			}else{
+    				enJuego = false;
+    			}
+    		}
+    	}
+    }
+    
+    boolean esLanzamientoValido(Lanzamiento lanzamiento){
+    	double angulo = lanzamiento.obtenerAngulo();
+    	return anguloMaximoPermitido > angulo  && angulo > anguloMinimoPermitido;
+    }
+    
+    public List<Lanzador> obtenerCompetidores(){
     	return this.competidores;
     }
     
