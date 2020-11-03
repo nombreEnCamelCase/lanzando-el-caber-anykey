@@ -12,11 +12,10 @@ public class Torneo {
 	private int anguloMayorValorTotal = 45;
 
 	
-	public Torneo(){}
-	
-    public static void main(String[] args) {
-        Map<Integer, Lanzamiento> lanzamientos = FileManager.singleton.leerArchivo("entrada.txt");
-    }
+	public Torneo(){
+		
+	}
+
     
     void agregarLanzadoresACompetencia(Map<Integer, Lanzamiento> lanzamientos){
         int lanzadorActual = 1;

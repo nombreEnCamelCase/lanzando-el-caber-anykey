@@ -12,7 +12,7 @@ public class FileManager {
 
 	public FileManager(){}
 	
-	Map<Integer, Lanzamiento> leerArchivo(String nombreArchivo){
+	 Map<Integer, Lanzamiento> leerArchivo(String nombreArchivo){
 		File archivo = new File(nombreArchivo); 
         Map<Integer, Lanzamiento> datos = new HashMap<>();
         
