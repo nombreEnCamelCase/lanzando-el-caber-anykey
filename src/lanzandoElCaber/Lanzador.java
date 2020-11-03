@@ -18,4 +18,8 @@ public class Lanzador {
 	public List<Lanzamiento> obtenerLanzamientos() {
 		return this.lanzamientos;
 	}
+	
+	public int getNumeroLanzador() {
+		return this.numeroLanzador;
+	}
 }
