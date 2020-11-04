@@ -4,7 +4,7 @@ public class Lanzamiento {
 	private double distancia;
 	private double angulo;
 
-	public Lanzamiento(double angulo, double distancia) {
+	public Lanzamiento(double distancia,double angulo) {
 		this.distancia = distancia;
 		this.angulo = angulo;
 	}

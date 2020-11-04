@@ -102,14 +102,14 @@ public class Torneo {
 				// Lo considero para consistencia
 				competirEnConsistencia(competidor);
 			}
-
 		}
 
+		FileManager.singleton.escribirArchivo(generarMatrizGandores());
 	}
 
 	private boolean esLanzamientoValido(Lanzamiento lanzamiento) {
 		double angulo = lanzamiento.obtenerAngulo();
-		return angulo >= this.anguloMinimoPermitido && angulo <= this.anguloMaximoPermitido;
+		return angulo <= this.anguloMinimoPermitido && angulo >= this.anguloMaximoPermitido;
 	}
 
 	public List<Lanzador> obtenerCompetidores() {
@@ -127,6 +127,31 @@ public class Torneo {
 				return distanciaLanza * porcentajeMinimoValido;
 		} else
 			return -1;
+	}
+
+	private int[][] generarMatrizGandores() {
+		int matrizResultado[][] = new int[2][3];
+		int [][] matriz = {{-1,-1,-1},{-1,-1,-1}};
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				matrizResultado[j][i] = removerMayorGanadorDistancia();
+			}
+		}
+
+		return matrizResultado;
+	}
+
+	private int removerMayorGanadorDistancia() {
+		Map.Entry<Lanzador, Double> ganadorMax = null;
+		Lanzador ganadorResponse = null;
+		for (Map.Entry<Lanzador, Double> ganador : this.ganadoresDistancia.entrySet()) {
+			if (ganadorMax == null || ganador.getValue().compareTo(ganadorMax.getValue()) > 0) {
+				ganadorMax = ganador;
+			}
+		}
+		ganadorResponse = ganadorMax.getKey();
+		this.ganadoresDistancia.remove(ganadorMax);
+		return ganadorResponse.getNumeroLanzador();
 	}
 
 }

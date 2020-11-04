@@ -64,7 +64,7 @@ public class FileManager {
 	}
 
 	public void escribirArchivo(int mat[][]) {
-		
+		int a = 3;
 	}
 
 }
