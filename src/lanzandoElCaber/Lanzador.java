@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Lanzador {
 	private int numeroLanzador;
-	private List<Lanzamiento> lanzamientos = new ArrayList<Lanzamiento>();
+	private ArrayList<Lanzamiento> lanzamientos = new ArrayList<Lanzamiento>();
 
 	public Lanzador(int numeroLanzador) {
 		this.numeroLanzador = numeroLanzador;
@@ -15,7 +15,7 @@ public class Lanzador {
 		this.lanzamientos.add(lanzamiento);
 	}
 
-	public List<Lanzamiento> obtenerLanzamientos() {
+	public ArrayList<Lanzamiento> obtenerLanzamientos() {
 		return this.lanzamientos;
 	}
 	
