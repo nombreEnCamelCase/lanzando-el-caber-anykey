@@ -15,8 +15,8 @@ public class Torneo {
 	private String filePathCompetencia;
 
 	// SOLO GUARDO LOS MEJORES 3 EN CADA ARRAY DE GANADORES.
-	private HashMap<Integer, Double> ganadoresConsistencia = new HashMap<Integer, Double>();
-	private HashMap<Integer, Double> ganadoresDistancia = new HashMap<Integer, Double>();
+	private HashMap<Integer, Double> podioConsistencia = new HashMap<Integer, Double>();
+	private HashMap<Integer, Double> podioDistancia = new HashMap<Integer, Double>();
 
 	public Torneo(String competencia) {
 		// Torneo con reglas default.
@@ -54,16 +54,16 @@ public class Torneo {
 		// Suma todas las distancias, si es invalido suma 0 pero cuenta el tiro igual.
 		// Ganadores a distancia
 		if(distanciaTotal>0) {
-			if (this.ganadoresDistancia.size() > 3) {
-				for (Map.Entry<Integer, Double> ganador : ganadoresDistancia.entrySet()) {
+			if (this.podioDistancia.size() > 3) {
+				for (Map.Entry<Integer, Double> ganador : podioDistancia.entrySet()) {
 					if (ganador.getValue() < distanciaTotal) {
-						this.ganadoresDistancia.remove(ganador);
-						this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
+						this.podioDistancia.remove(ganador);
+						this.podioDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
 						break;
 					}
 				}
 			} else
-				this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
+				this.podioDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
 		}
 	}
 
@@ -75,17 +75,17 @@ public class Torneo {
 		promedio = (x1 + x2 + x3) / 3;
 
 		varianza = ((x1 - promedio) + (x2 - promedio) + (x3 - promedio)) / 3;
-		this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
-		if (this.ganadoresConsistencia.size() > 3) {
-			for (Map.Entry<Integer, Double> ganador : ganadoresConsistencia.entrySet()) {
+		this.podioConsistencia.put(competidor.getNumeroLanzador(), varianza);
+		if (this.podioConsistencia.size() > 3) {
+			for (Map.Entry<Integer, Double> ganador : podioConsistencia.entrySet()) {
 				if (ganador.getValue() > varianza) {
-					this.ganadoresConsistencia.remove(ganador);
-					this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
+					this.podioConsistencia.remove(ganador);
+					this.podioConsistencia.put(competidor.getNumeroLanzador(), varianza);
 					break;
 				}
 			}
 		} else
-			this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
+			this.podioConsistencia.put(competidor.getNumeroLanzador(), varianza);
 	}
 
 	public void generarPodios() {
@@ -149,14 +149,14 @@ public class Torneo {
 		int a = 0;
 
 		for (int j = 0; j < 3; j++) {
-			a = removerUnGanadorLimite(this.ganadoresConsistencia, false);
+			a = removerUnGanadorLimite(this.podioConsistencia, false);
 			if (a != -1)
 				matrizResultado[0][j] = Integer.toString(a);
 			else
 				matrizResultado[0][j] = " ";
 		}
 		for (int j = 0; j < 3; j++) {
-			a = removerUnGanadorLimite(this.ganadoresDistancia, true);
+			a = removerUnGanadorLimite(this.podioDistancia, true);
 			if (a != -1 )
 				matrizResultado[1][j] = Integer.toString(a);
 			else
@@ -183,5 +183,14 @@ public class Torneo {
 		}
 		return -1;
 	}
+	
+	
+	public HashMap<Integer, Double> obtenerPodioConsistencia(){
+		return this.podioConsistencia;
+	}
 
+	public HashMap<Integer, Double> obtenerPodioDistancia(){
+		return this.podioDistancia;
+	}
+	
 }
