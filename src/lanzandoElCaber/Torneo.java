@@ -155,7 +155,7 @@ public class Torneo {
 		}
 		for (int j = 0; j < 3; j++) {
 			a = removerUnGanadorLimite(this.ganadoresDistancia, true);
-			if (a != -1)
+			if (a != -1 )
 				matrizResultado[1][j] = Integer.toString(a);
 			else
 				matrizResultado[1][j] = " ";
