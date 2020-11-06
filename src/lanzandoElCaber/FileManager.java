@@ -16,14 +16,14 @@ public class FileManager {
 
 	public final static FileManager singleton = new FileManager();
 
-	private String nombreRealArchivo;
+	private String pathOutput;
 
 	public FileManager() {
 
 	}
 
 	public List<Lanzador> leerArchivo(String pathCompletoArchivo) {
-
+		this.setearNombreRealArchivo(pathCompletoArchivo);
 		
 		File archivo = new File(pathCompletoArchivo);
 		List<Lanzador> datosEntrada = new LinkedList<Lanzador>();
@@ -64,14 +64,14 @@ public class FileManager {
 	public void setearNombreRealArchivo(String pathCompleto) {
 		// Realizar el proceso de parseo. Splitear desde derecha a izq, desde el punto
 		// .in hacia encontrar una / o nada y guardar eso como nombre de archivo.
-		this.nombreRealArchivo = pathCompleto;
+		this.pathOutput = pathCompleto.substring(0, pathCompleto.lastIndexOf('.'))+".out";
 	}
 
 	public void escribirArchivo(String mat[][]) {
 		FileWriter archivo = null;
 		PrintWriter pw = null;
 		try {
-			archivo = new FileWriter(this.nombreRealArchivo + "Salida");
+			archivo = new FileWriter(this.pathOutput);
 			pw = new PrintWriter(archivo);
 			
 			pw.println(mat[0][0]+" "+mat[0][1]+" "+mat[0][2]);
