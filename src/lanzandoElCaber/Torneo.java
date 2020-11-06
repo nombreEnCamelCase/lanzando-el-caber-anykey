@@ -53,16 +53,18 @@ public class Torneo {
 		// Yo SIEMPRE me quedo con 3 ganadores MAXIMO.
 		// Suma todas las distancias, si es invalido suma 0 pero cuenta el tiro igual.
 		// Ganadores a distancia
-		if (this.ganadoresDistancia.size() > 3) {
-			for (Map.Entry<Integer, Double> ganador : ganadoresDistancia.entrySet()) {
-				if (ganador.getValue() < distanciaTotal) {
-					this.ganadoresDistancia.remove(ganador);
-					this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
-					break;
+		if(distanciaTotal>0) {
+			if (this.ganadoresDistancia.size() > 3) {
+				for (Map.Entry<Integer, Double> ganador : ganadoresDistancia.entrySet()) {
+					if (ganador.getValue() < distanciaTotal) {
+						this.ganadoresDistancia.remove(ganador);
+						this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
+						break;
+					}
 				}
-			}
-		} else
-			this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
+			} else
+				this.ganadoresDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
+		}
 	}
 
 	public void competirEnConsistencia(Lanzador competidor) {
