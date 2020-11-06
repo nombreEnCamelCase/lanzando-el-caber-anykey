@@ -70,20 +70,20 @@ public class Torneo {
 		double x2 = competidor.obtenerLanzamientos().get(1).obtenerAngulo();
 		double x3 = competidor.obtenerLanzamientos().get(2).obtenerAngulo();
 		double promedio, varianza;
-		 promedio = (x1+x2+x3)/3;
-		 
-		 varianza = ((x1-promedio)+(x2-promedio)+(x3-promedio))/3;
-		 this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
-		 if (this.ganadoresConsistencia.size() > 3) {
-				for (Map.Entry<Integer, Double> ganador : ganadoresConsistencia.entrySet()) {
-					if (ganador.getValue() > varianza) {
-						this.ganadoresConsistencia.remove(ganador);
-						this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
-						break;
-					}
+		promedio = (x1 + x2 + x3) / 3;
+
+		varianza = ((x1 - promedio) + (x2 - promedio) + (x3 - promedio)) / 3;
+		this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
+		if (this.ganadoresConsistencia.size() > 3) {
+			for (Map.Entry<Integer, Double> ganador : ganadoresConsistencia.entrySet()) {
+				if (ganador.getValue() > varianza) {
+					this.ganadoresConsistencia.remove(ganador);
+					this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
+					break;
 				}
-			} else
-				this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
+			}
+		} else
+			this.ganadoresConsistencia.put(competidor.getNumeroLanzador(), varianza);
 	}
 
 	public void generarPodios() {
@@ -141,29 +141,40 @@ public class Torneo {
 			return -1;
 	}
 
-	private int[][] generarMatrizGandores() {
-		int matrizResultado[][] = new int[2][3];
-		int[][] matriz = { { -1, -1, -1 }, { -1, -1, -1 } };
+	private String[][] generarMatrizGandores() {
+		String matrizResultado[][] = new String[2][3];
+//		String[][] matriz = { { " ", " ", " " }, { " ", " ", " " } };
+		int a = 0;
 
 		for (int j = 0; j < 3; j++) {
-			matrizResultado[0][j] = removerUnGanadorLimite(this.ganadoresConsistencia,false);
+			a = removerUnGanadorLimite(this.ganadoresConsistencia, false);
+			if (a != -1)
+				matrizResultado[0][j] = Integer.toString(a);
+			else
+				matrizResultado[0][j] = " ";
 		}
 		for (int j = 0; j < 3; j++) {
-			matrizResultado[1][j] = removerUnGanadorLimite(this.ganadoresDistancia,true);
+			a = removerUnGanadorLimite(this.ganadoresDistancia, true);
+			if (a != -1)
+				matrizResultado[1][j] = Integer.toString(a);
+			else
+				matrizResultado[1][j] = " ";
+
 		}
 
 		return matrizResultado;
 	}
 
-	private int removerUnGanadorLimite(HashMap<Integer, Double> ganadores,boolean isMax) {
+	private int removerUnGanadorLimite(HashMap<Integer, Double> ganadores, boolean isMax) {
 		Map.Entry<Integer, Double> ganadorLimite = null;
 		Integer ganadorResponse = null;
 		for (Map.Entry<Integer, Double> ganador : ganadores.entrySet()) {
-			if (ganadorLimite == null || (isMax ? (ganador.getValue().compareTo(ganadorLimite.getValue()) > 0) : (ganador.getValue().compareTo(ganadorLimite.getValue()) < 0))) {
+			if (ganadorLimite == null || (isMax ? (ganador.getValue().compareTo(ganadorLimite.getValue()) > 0)
+					: (ganador.getValue().compareTo(ganadorLimite.getValue()) < 0))) {
 				ganadorLimite = ganador;
 			}
 		}
-		if(ganadores.size() > 0 ) {
+		if (ganadores.size() > 0) {
 			ganadorResponse = ganadorLimite.getKey();
 			ganadores.remove(ganadorLimite.getKey());
 			return ganadorResponse;

@@ -1,6 +1,10 @@
 package lanzandoElCaber;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -63,8 +67,28 @@ public class FileManager {
 		this.nombreRealArchivo = pathCompleto;
 	}
 
-	public void escribirArchivo(int mat[][]) {
-		int a = 3;
+	public void escribirArchivo(String mat[][]) {
+		FileWriter archivo = null;
+		PrintWriter pw = null;
+		try {
+			archivo = new FileWriter(this.nombreRealArchivo + "Salida");
+			pw = new PrintWriter(archivo);
+			
+			pw.println(mat[0][0]+" "+mat[0][1]+" "+mat[0][2]);
+			pw.println(mat[1][0]+" "+mat[1][1]+" "+mat[1][2]);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (archivo != null) {
+				try {
+					archivo.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 }
