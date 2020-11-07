@@ -136,6 +136,34 @@ public class TorneoTests {
 		assertEquals(false,result);
 	}
 	
+	@Test
+	public void lanzamientoFullDistancia_ObtenerDistanciaCalculada() {
+		// Arrange
+
+		Lanzamiento lanzamiento = new Lanzamiento(1.0,-80);
+		this.torneo = new Torneo("");
+		
+		// Act
+		double result = this.torneo.obtenerDistanciaCalculada(lanzamiento);
+		
+		//Assert
+		assertEquals(0.8,result,1);
+	}
+	
+	@Test
+	public void lanzamiento80Distancia_ObtenerDistanciaCalculada() {
+		// Arrange
+
+		Lanzamiento lanzamiento = new Lanzamiento(1.0,10);
+		this.torneo = new Torneo("");
+		
+		// Act
+		double result = this.torneo.obtenerDistanciaCalculada(lanzamiento);
+		
+		//Assert
+		assertEquals(1.0,result,0);
+	}
+	
 	
 	
 	/* UT referentes a los casos de prueba*/
