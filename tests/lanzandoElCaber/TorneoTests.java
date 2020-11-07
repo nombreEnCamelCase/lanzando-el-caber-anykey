@@ -165,6 +165,38 @@ public class TorneoTests {
 		assertEquals(1.0, result, 0);
 	}
 
+	@Test
+	public void generarPodios_test() {
+		// Arrange
+		Integer[] ganadoresConsistencia, ganadoresDistancia;
+
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		torneo.agregarLanzadoresACompetencia();
+
+		// Act
+		torneo.generarPodios();
+		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
+		ganadoresDistancia = torneo.obtenerPodioDistancia();
+
+		// Assert
+		assertEquals(true, ganadoresConsistencia.length > 0);
+		assertEquals(true, ganadoresDistancia.length > 0);
+	}
+
+	@Test
+	public void generarMatrizResultado_test() {
+		// Arrange
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		torneo.agregarLanzadoresACompetencia();
+
+		// Act
+		torneo.generarPodios();
+
+		// Assert
+		assertEquals(true, torneo.generarMatrizGandores() != null);
+		assertEquals(true, torneo.generarMatrizGandores().length > 0);
+	}
+
 	/* UT referentes a los casos de prueba */
 	@Test
 	public void caso_enunciado_test() {
@@ -172,9 +204,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -196,9 +228,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_1.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -220,9 +252,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_2.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -243,9 +275,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_3.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -266,9 +298,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_4.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -289,9 +321,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_5.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();
@@ -312,9 +344,9 @@ public class TorneoTests {
 		Integer[] ganadoresConsistencia, ganadoresDistancia;
 
 		this.torneo = new Torneo("casos-prueba\\caso_6.in");
+		torneo.agregarLanzadoresACompetencia();
 
 		// Act
-		torneo.agregarLanzadoresACompetencia();
 		torneo.generarPodios();
 		ganadoresConsistencia = torneo.obtenerPodioConsistencia();
 		ganadoresDistancia = torneo.obtenerPodioDistancia();

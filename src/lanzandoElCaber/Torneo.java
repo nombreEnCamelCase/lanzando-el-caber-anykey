@@ -151,7 +151,7 @@ public class Torneo {
 			return -1;
 	}
 
-	private Integer[][] generarMatrizGandores() {
+	public Integer[][] generarMatrizGandores() {
 		Integer matrizResultado[][] = new Integer[2][3];
 
 		int a = 0;
