@@ -69,7 +69,7 @@ public class Torneo {
 			} else
 				this.podioDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
 		}
-	}
+	} 
 
 	public void competirEnConsistencia(Lanzador competidor) {
 		double x1 = competidor.obtenerLanzamientos().get(0).obtenerAngulo();
@@ -175,7 +175,7 @@ public class Torneo {
 		return matrizResultado;
 	}
 
-	private int removerUnGanadorLimite(HashMap<Integer, Double> ganadores, boolean isMax) {
+	public int removerUnGanadorLimite(HashMap<Integer, Double> ganadores, boolean isMax) {
 		Map.Entry<Integer, Double> ganadorLimite = null;
 		Integer ganadorResponse = null;
 		for (Map.Entry<Integer, Double> ganador : ganadores.entrySet()) {
@@ -215,7 +215,9 @@ public class Torneo {
 	}
 
 	public Integer[] obtenerPodioDistancia() {
-		return this.matrizResultado[1];
+		if (this.matrizResultado != null && this.matrizResultado[1] != null)
+			return this.matrizResultado[1];
+		return null;
 	}
 
 	public List<Lanzador> obtenerCompetidores() {

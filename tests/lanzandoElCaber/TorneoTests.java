@@ -196,6 +196,38 @@ public class TorneoTests {
 		assertEquals(true, torneo.generarMatrizGandores() != null);
 		assertEquals(true, torneo.generarMatrizGandores().length > 0);
 	}
+	
+	
+	@Test
+	public void remueveGanadorLimite_distancia_test() {
+		// Arrange
+		Lanzador competidorMock = new Lanzador(-2);
+		this.torneo = new Torneo("");
+		this.torneo.competirEnDistancia(competidorMock, 200);
+		
+		// Act
+		int result = this.torneo.removerUnGanadorLimite(this.torneo.obtenerActualPodioDistancia(), true);
+		
+		// Assert
+		assertEquals(-2, result,0);
+	}
+	
+	@Test
+	public void remueveGanadorLimite_consistencia_test() {
+		// Arrange
+		this.torneo = new Torneo("");
+		Lanzador competidorMock = new Lanzador(-2);
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0, 20.1));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0, 20.2));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0, 20.3));
+		this.torneo.competirEnConsistencia(competidorMock);
+		
+		// Act
+		int result = this.torneo.removerUnGanadorLimite(this.torneo.obtenerActualPodioConsistencia(), false);
+		
+		// Assert
+		assertEquals(-2, result,0);
+	}
 
 	/* UT referentes a los casos de prueba */
 	@Test
