@@ -47,9 +47,9 @@ public class Torneo {
 			System.out.println("Ocurrio un error al agregar lanzadores al torneo.");
 		}
 	}
-	
+
 	public void agregarLanzadoresACompetencia(List<Lanzador> lanzadores) {
-			this.competidores = lanzadores;
+		this.competidores = lanzadores;
 	}
 
 	public void competirEnDistancia(Lanzador competidor, double distanciaTotal) {
@@ -57,7 +57,7 @@ public class Torneo {
 		// Yo SIEMPRE me quedo con 3 ganadores MAXIMO.
 		// Suma todas las distancias, si es invalido suma 0 pero cuenta el tiro igual.
 		// Ganadores a distancia
-		if(distanciaTotal>0) {
+		if (distanciaTotal > 0) {
 			if (this.podioDistancia.size() > 3) {
 				for (Map.Entry<Integer, Double> ganador : podioDistancia.entrySet()) {
 					if (ganador.getValue() < distanciaTotal) {
@@ -70,14 +70,16 @@ public class Torneo {
 				this.podioDistancia.put(competidor.getNumeroLanzador(), distanciaTotal);
 		}
 	}
- 
+
 	public void competirEnConsistencia(Lanzador competidor) {
 		double x1 = competidor.obtenerLanzamientos().get(0).obtenerAngulo();
 		double x2 = competidor.obtenerLanzamientos().get(1).obtenerAngulo();
 		double x3 = competidor.obtenerLanzamientos().get(2).obtenerAngulo();
 		double promedio, varianza;
 
-		if(esLanzamientoValido(competidor.obtenerLanzamientos().get(0))&&esLanzamientoValido(competidor.obtenerLanzamientos().get(1))&&esLanzamientoValido(competidor.obtenerLanzamientos().get(2))) {
+		if (esLanzamientoValido(competidor.obtenerLanzamientos().get(0))
+				&& esLanzamientoValido(competidor.obtenerLanzamientos().get(1))
+				&& esLanzamientoValido(competidor.obtenerLanzamientos().get(2))) {
 			promedio = (x1 + x2 + x3) / 3;
 			varianza = ((x1 - promedio) + (x2 - promedio) + (x3 - promedio)) / 3;
 			this.podioConsistencia.put(competidor.getNumeroLanzador(), varianza);
@@ -92,7 +94,7 @@ public class Torneo {
 			} else
 				this.podioConsistencia.put(competidor.getNumeroLanzador(), varianza);
 		}
-		
+
 	}
 
 	public void generarPodios() {
@@ -108,7 +110,7 @@ public class Torneo {
 		for (Lanzador competidor : this.competidores) {
 			boolean enJuego = true;
 			distanciaTotal = 0;
- 
+
 			for (Lanzamiento lanzamiento : competidor.obtenerLanzamientos()) {
 
 				if ((distanciaLanzamiento = obtenerDistanciaCalculada(lanzamiento)) < 0)
@@ -124,10 +126,10 @@ public class Torneo {
 				competirEnConsistencia(competidor);
 			}
 		}
-		
+
 		this.matrizResultado = generarMatrizGandores();
-		
-		if(this.filePathCompetencia!="" && this.filePathCompetencia!=null)
+
+		if (this.filePathCompetencia != "" && this.filePathCompetencia != null)
 			FileManager.singleton.escribirArchivo(matrizResultado);
 	}
 
@@ -163,7 +165,7 @@ public class Torneo {
 		}
 		for (int j = 0; j < 3; j++) {
 			a = removerUnGanadorLimite(this.podioDistancia, true);
-			if (a != -1 )
+			if (a != -1)
 				matrizResultado[1][j] = a;
 			else
 				matrizResultado[1][j] = -1;
@@ -189,34 +191,33 @@ public class Torneo {
 		}
 		return -1;
 	}
-	
-	
-	public HashMap<Integer, Double> obtenerActualPodioConsistencia(){
+
+	public HashMap<Integer, Double> obtenerActualPodioConsistencia() {
 		return this.podioConsistencia;
 	}
-	
-	public HashMap<Integer, Double> obtenerActualPodioDistancia(){
+
+	public HashMap<Integer, Double> obtenerActualPodioDistancia() {
 		return this.podioDistancia;
 	}
 
-	public HashMap<Integer, Double> setearPodioDistancia(HashMap<Integer, Double> podio){
+	public HashMap<Integer, Double> setearPodioDistancia(HashMap<Integer, Double> podio) {
 		return this.podioDistancia = podio;
 	}
-	
-	public HashMap<Integer, Double> setearPodioConsistencia(HashMap<Integer, Double> podio){
+
+	public HashMap<Integer, Double> setearPodioConsistencia(HashMap<Integer, Double> podio) {
 		return this.podioConsistencia = podio;
 	}
 
-	public Integer[] obtenerPodioConsistencia(){
-		if(this.matrizResultado!=null && this.matrizResultado[0]!=null)
+	public Integer[] obtenerPodioConsistencia() {
+		if (this.matrizResultado != null && this.matrizResultado[0] != null)
 			return this.matrizResultado[0];
 		return null;
 	}
-	
-	public Integer[] obtenerPodioDistancia(){
+
+	public Integer[] obtenerPodioDistancia() {
 		return this.matrizResultado[1];
 	}
-	
+
 	public List<Lanzador> obtenerCompetidores() {
 		return this.competidores;
 	}
