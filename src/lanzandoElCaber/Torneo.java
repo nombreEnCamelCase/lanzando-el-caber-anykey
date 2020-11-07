@@ -13,7 +13,7 @@ public class Torneo {
 	private double anguloMinimoDistanciaTotal;
 	private double porcentajeMinimoValido;
 	private String filePathCompetencia;
-
+	private Integer[][] matrizResultado;
 	// SOLO GUARDO LOS MEJORES 3 EN CADA ARRAY DE GANADORES.
 	private HashMap<Integer, Double> podioConsistencia = new HashMap<Integer, Double>();
 	private HashMap<Integer, Double> podioDistancia = new HashMap<Integer, Double>();
@@ -101,7 +101,7 @@ public class Torneo {
 		for (Lanzador competidor : this.competidores) {
 			boolean enJuego = true;
 			distanciaTotal = 0;
-
+ 
 			for (Lanzamiento lanzamiento : competidor.obtenerLanzamientos()) {
 
 				if ((distanciaLanzamiento = obtenerDistanciaCalculada(lanzamiento)) < 0)
@@ -118,7 +118,7 @@ public class Torneo {
 			}
 		}
 
-		FileManager.singleton.escribirArchivo(generarMatrizGandores());
+		FileManager.singleton.escribirArchivo(this.matrizResultado = generarMatrizGandores());
 	}
 
 	private boolean esLanzamientoValido(Lanzamiento lanzamiento) {
@@ -143,24 +143,24 @@ public class Torneo {
 			return -1;
 	}
 
-	private String[][] generarMatrizGandores() {
-		String matrizResultado[][] = new String[2][3];
-//		String[][] matriz = { { " ", " ", " " }, { " ", " ", " " } };
+	private Integer[][] generarMatrizGandores() {
+		Integer matrizResultado[][] = new Integer[2][3];
+
 		int a = 0;
 
 		for (int j = 0; j < 3; j++) {
 			a = removerUnGanadorLimite(this.podioConsistencia, false);
 			if (a != -1)
-				matrizResultado[0][j] = Integer.toString(a);
+				matrizResultado[0][j] = a;
 			else
-				matrizResultado[0][j] = " ";
+				matrizResultado[0][j] = -1;
 		}
 		for (int j = 0; j < 3; j++) {
 			a = removerUnGanadorLimite(this.podioDistancia, true);
 			if (a != -1 )
-				matrizResultado[1][j] = Integer.toString(a);
+				matrizResultado[1][j] = a;
 			else
-				matrizResultado[1][j] = " ";
+				matrizResultado[1][j] = -1;
 
 		}
 
@@ -184,13 +184,23 @@ public class Torneo {
 		return -1;
 	}
 	
-	
-	public HashMap<Integer, Double> obtenerPodioConsistencia(){
-		return this.podioConsistencia;
-	}
+//	
+//	public HashMap<Integer, Double> obtenerPodioConsistencia(){
+//		return this.podioConsistencia;
+//	}
+//
+//	public HashMap<Integer, Double> obtenerPodioDistancia(){
+//		return this.podioDistancia;
+//	}
 
-	public HashMap<Integer, Double> obtenerPodioDistancia(){
-		return this.podioDistancia;
+	public Integer[] obtenerPodioConsistencia(){
+		if(this.matrizResultado!=null && this.matrizResultado[0]!=null)
+			return this.matrizResultado[0];
+		return null;
+	}
+	
+	public Integer[] obtenerPodioDistancia(){
+		return this.matrizResultado[1];
 	}
 	
 }

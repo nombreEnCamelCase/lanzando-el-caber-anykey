@@ -67,15 +67,26 @@ public class FileManager {
 		this.pathOutput = pathCompleto.substring(0, pathCompleto.lastIndexOf('.'))+".out";
 	}
 
-	public void escribirArchivo(String mat[][]) {
+	public void escribirArchivo(Integer mat[][]) {
 		FileWriter archivo = null;
 		PrintWriter pw = null;
+		String matString[][] = new String[2][3];
+		 
+		for(int i=0;i<2;i++) {
+			for(int j=0;j<3;j++) {
+				if(mat[i][j]==-1)
+					matString[i][j] = " ";
+				else
+					matString[i][j] = String.valueOf(mat[i][j]);
+			}
+		}
+		
 		try {
 			archivo = new FileWriter(this.pathOutput);
 			pw = new PrintWriter(archivo);
 			
-			pw.println(mat[0][0]+" "+mat[0][1]+" "+mat[0][2]);
-			pw.println(mat[1][0]+" "+mat[1][1]+" "+mat[1][2]);
+			pw.println(matString[0][0]+" "+matString[0][1]+" "+matString[0][2]);
+			pw.println(matString[1][0]+" "+matString[1][1]+" "+matString[1][2]);
 
 		} catch (Exception e) {
 			e.printStackTrace();
