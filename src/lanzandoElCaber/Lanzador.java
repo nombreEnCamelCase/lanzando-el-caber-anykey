@@ -19,7 +19,7 @@ public class Lanzador {
 		return this.lanzamientos;
 	}
 	
-	public int getNumeroLanzador() {
+	public int getNumeroLanzador() { 
 		return this.numeroLanzador;
 	}
 }

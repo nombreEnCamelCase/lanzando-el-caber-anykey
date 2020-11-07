@@ -1,6 +1,10 @@
 package lanzandoElCaber;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class TorneoTests {
@@ -8,11 +12,133 @@ public class TorneoTests {
 
 	@Test
 	public void agregarLanzadoresACompetencia() {
+		// Arrange
 		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		
+		// Act
 		this.torneo.agregarLanzadoresACompetencia();
+		
+		// Assert
 		assertEquals(3, this.torneo.obtenerCompetidores().size(), 0);
 	}
+	
+	@Test
+	public void agregarLanzadoresACompetencia_2() {
+		// Arrange
+		this.torneo = new Torneo("");
+		Lanzador competidorMock = new Lanzador(-2);
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.1));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.2));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.3));
+		List<Lanzador> competidores = new LinkedList<Lanzador>();
+		competidores.add(competidorMock);
+		
+		// Act
+		this.torneo.agregarLanzadoresACompetencia(competidores);
+		
+		// Assert
+		assertEquals(1, this.torneo.obtenerCompetidores().size(), 0);
+	}
+	
+	
+	@Test
+	public void competirEnDistancia_AgregaLanzadorAPodio() {
+		// Arrange
+		Lanzador competidorMock = new Lanzador(-2);
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		this.torneo.agregarLanzadoresACompetencia();
+		
+		// Act
+		this.torneo.competirEnDistancia(competidorMock, 200);
+		
+		//Assert
+		assertEquals(true,this.torneo.obtenerActualPodioDistancia().containsKey(competidorMock.getNumeroLanzador()));
+	}
+	
+	@Test
+	public void competirEnDistancia_NOAgregaLanzadorAPodio() {
+		// Arrange
+		Lanzador competidorMock = new Lanzador(-2);
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		this.torneo.agregarLanzadoresACompetencia();
+		this.torneo.generarPodios();
+		
+		// Act
+		this.torneo.competirEnDistancia(competidorMock, 0);
+		
+		//Assert
+		assertEquals(false,this.torneo.obtenerActualPodioDistancia().containsKey(competidorMock.getNumeroLanzador()));
+	}
+	
+	@Test
+	public void competirEnConsistencia_AgregaLanzadorAPodio() {
+		// Arrange
+		Lanzador competidorMock = new Lanzador(-2);
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.1));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.2));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,20.3));
+		
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		this.torneo.agregarLanzadoresACompetencia();
+		this.torneo.generarPodios();
+		
+		// Act
+		this.torneo.competirEnConsistencia(competidorMock);
+		
+		//Assert
+		assertEquals(true,this.torneo.obtenerActualPodioConsistencia().containsKey(competidorMock.getNumeroLanzador()));
+	}
+	
+	@Test
+	public void competirEnConsistencia_NOAgregaLanzadorAPodio() {
+		// Arrange
+		Lanzador competidorMock = new Lanzador(-2);
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,100));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,-100));
+		competidorMock.registrarLanzamiento(new Lanzamiento(1.0,120));
+		
+		this.torneo = new Torneo("casos-prueba\\caso_enunciado.in");
+		this.torneo.agregarLanzadoresACompetencia();
+		this.torneo.generarPodios();
+		
+		// Act
+		this.torneo.competirEnConsistencia(competidorMock);
+		
+		//Assert
+		assertEquals(false,this.torneo.obtenerActualPodioConsistencia().containsKey(competidorMock.getNumeroLanzador()));
+	}
+	
+	@Test
+	public void lanzamiento_esValido() {
+		// Arrange
 
+		Lanzamiento lanzamiento = new Lanzamiento(1.0,30);
+		this.torneo = new Torneo("");
+		
+		// Act
+		boolean result = this.torneo.esLanzamientoValido(lanzamiento);
+		
+		//Assert
+		assertEquals(true,result);
+	}
+	
+	@Test
+	public void lanzamiento_NOesValido() {
+		// Arrange
+
+		Lanzamiento lanzamiento = new Lanzamiento(1.0,-95);
+		this.torneo = new Torneo("");
+		
+		// Act
+		boolean result = this.torneo.esLanzamientoValido(lanzamiento);
+		
+		//Assert
+		assertEquals(false,result);
+	}
+	
+	
+	
+	/* UT referentes a los casos de prueba*/
 	@Test
 	public void caso_enunciado_test() {
 		// Arrange
