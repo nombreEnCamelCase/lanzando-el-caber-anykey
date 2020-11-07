@@ -19,6 +19,7 @@ public class LanzadorTest {
 		assertEquals(1, lanzador.getNumeroLanzador());
 	}
 
+	@Test
 	public void registarLanzamientoTest() {
 		Lanzamiento1 = new Lanzamiento(0.1, 0.4);
 		lanzamiento2 = new Lanzamiento(0.2, 1.4);
